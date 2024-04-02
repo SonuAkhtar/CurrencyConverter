@@ -22,7 +22,15 @@ const CurrencyConvertor = () => {
         />
       </div>
 
-      <div></div>
+      <div className="flex justify-end mt-6">
+        <button className="px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+          Convert
+        </button>
+      </div>
+
+      <div className="mt-4 text-lg font-medium text-right text-green-500">
+        Converted Amount:
+      </div>
     </div>
   );
 };
