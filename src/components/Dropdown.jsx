@@ -8,11 +8,12 @@ const Dropdown = ({
   handleFavorite,
   title = "",
 }) => {
+  const isFavorite = (curr) => favorites.includes(curr);
   return (
     <div>
       <label
         htmlFor={title}
-        className="block text-sm font-medium text-gray-700"
+        className="block text-sm font-medium text-gray-700 px-1"
       >
         {title}
       </label>
@@ -23,21 +24,35 @@ const Dropdown = ({
           onChange={(e) => setCurrency(e.target.value)}
           className="w-full p-2 border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
-          <hr />
-          {currencies?.map((currency) => {
+          {favorites?.map((currency) => {
             return (
-              <option value={currency} key={currency}>
+              <option className="bg-gray-200" value={currency} key={currency}>
                 {currency}
               </option>
             );
           })}
+
+          <hr />
+          {currencies
+            .filter((c) => !favorites.includes(c))
+            .map((currency) => {
+              return (
+                <option value={currency} key={currency}>
+                  {currency}
+                </option>
+              );
+            })}
         </select>
 
         <button
           onClick={() => handleFavorite(currency)}
           className="absolute inset-y-0 right-0 pr-5 flex items-center text-sm leading-5"
         >
-          x
+          {isFavorite(currency) ? (
+            <i class="fa-solid fa-bookmark" />
+          ) : (
+            <i class="fa-regular fa-bookmark" />
+          )}
         </button>
       </div>
     </div>
