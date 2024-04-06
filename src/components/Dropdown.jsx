@@ -27,7 +27,7 @@ const Dropdown = (props) => {
         <select
           value={currency}
           onChange={(e) => setCurrency(e.target.value)}
-          className="w-full p-2 border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full p-2 max-sm:py-3 border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           {favorites?.map((currency) => {
             return (
@@ -51,7 +51,7 @@ const Dropdown = (props) => {
 
         <button
           onClick={() => handleFavorite(currency)}
-          className="absolute inset-y-0 right-0 pr-5 flex items-center text-sm leading-5"
+          className="absolute inset-y-0 right-0 pr-10 flex items-center text-sm leading-5"
         >
           {isFavorite(currency) ? (
             <i class="fa-solid fa-bookmark" />
