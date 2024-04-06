@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from "react";
+
+// imported components & API's
 import Dropdown from "./Dropdown";
+import { ConvertCurrencyAPI, FetchCurrencyAPI } from "../api/api";
 
 const CurrencyConvertor = () => {
+  // Component States
   const [currencies, setCurrencies] = useState([]);
   const [amount, setAmount] = useState(1);
   const [fromCurrency, setFromCurrency] = useState("USD");
+  const [convertedAmount, setConvertedAmount] = useState("83.32");
   const [toCurrency, setToCurrency] = useState("INR");
   const [swap, setSwap] = useState(false);
 
-  const [convertedAmount, setConvertedAmount] = useState("83.32");
   const [converting, setConverting] = useState(false);
   const [favorites, setFavorites] = useState(
     JSON.parse(localStorage.getItem("favorites")) || ["INR"]
   );
 
+  // Method: to Fetch Currencies on page load
   const getCurrencies = async () => {
     try {
-      const res = await fetch("https://api.frankfurter.app/currencies");
+      const res = await fetch(FetchCurrencyAPI);
       const data = await res.json();
       setCurrencies(Object.keys(data));
     } catch (error) {
@@ -28,13 +33,14 @@ const CurrencyConvertor = () => {
     getCurrencies();
   }, []);
 
+  // Method: to Convert Currency on button click
   const currencyConvert = async () => {
     if (!amount) return;
 
     setConverting(true);
     try {
       const res = await fetch(
-        `https://api.frankfurter.app/latest?amount=${amount}&from=${fromCurrency}&to=${toCurrency}`
+        `${ConvertCurrencyAPI}amount=${amount}&from=${fromCurrency}&to=${toCurrency}`
       );
       const data = await res.json();
       setConvertedAmount(data.rates[toCurrency]);
@@ -45,6 +51,7 @@ const CurrencyConvertor = () => {
     }
   };
 
+  // Method: to add/remove favorites on button click
   const handleFavorite = (currency) => {
     let updatedFav = [...favorites];
 
@@ -58,6 +65,7 @@ const CurrencyConvertor = () => {
     localStorage.setItem("favorites", JSON.stringify(updatedFav));
   };
 
+  // Method: to swap currencies
   const swapCurrencies = () => {
     setFromCurrency(toCurrency);
     setToCurrency(fromCurrency);

@@ -1,14 +1,19 @@
 import React from "react";
 
-const Dropdown = ({
-  currencies,
-  currency,
-  setCurrency,
-  favorites,
-  handleFavorite,
-  title = "",
-}) => {
+const Dropdown = (props) => {
+  // Method: to check if currency is marked favorite
   const isFavorite = (curr) => favorites.includes(curr);
+
+  // Destructuring Props values
+  const {
+    title = "",
+    currencies,
+    currency,
+    setCurrency,
+    favorites,
+    handleFavorite,
+  } = props;
+
   return (
     <div>
       <label

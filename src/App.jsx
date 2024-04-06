@@ -1,3 +1,4 @@
+//imported components
 import CurrencyConvertor from "./components/CurrencyConvertor";
 
 function App() {
